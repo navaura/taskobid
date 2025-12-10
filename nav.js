@@ -10,13 +10,13 @@
     },
     links: [
       { text: 'Home', href: '/' },
-      { text: 'How It Works', href: 'how-it-works.html' },
-      { text: 'Categories', href: 'categories.html' },
-      { text: 'For Providers', href: 'for-providers.html' },
-      { text: 'Pricing', href: 'pricing.html' },
-      { text: 'Safety & Trust', href: 'safety.html' },
-      { text: 'About', href: 'about.html' },
-      { text: 'Contact', href: 'contact.html' }
+      { text: 'How It Works', href: 'how-it-works' },
+      { text: 'Categories', href: 'categories' },
+      { text: 'For Providers', href: 'for-providers' },
+      { text: 'Pricing', href: 'pricing' },
+      { text: 'Safety & Trust', href: 'safety' },
+      { text: 'About', href: 'about' },
+      { text: 'Contact', href: 'contact' }
     ]
   };
 
