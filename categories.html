@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Categories - TaskoBid</title>
+    <script src="nav.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --surface: #1a1a2e;
+            --text: #ffffff;
+            --text-dim: #b0b0b0;
+            --accent: #ff4757;
+            --accent-soft: #4ecdc4;
+            --border: rgba(255, 255, 255, 0.08);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        body.light {
+            --bg: #f5f5f5;
+            --surface: #ffffff;
+            --text: #111111;
+            --text-dim: #555555;
+            --border: rgba(0, 0, 0, 0.08);
+            --shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .page-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.1;
+            top: -200px;
+            right: -200px;
+            filter: blur(100px);
+        }
+
+        .logo {
+            width: 120px;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+
+        }
+
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--text), var(--accent-soft));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        /* Category Sections */
+        .category-showcase {
+            padding: 3rem 0 6rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 4rem 0 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0;
+        }
+
+        .divider {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, var(--border), transparent);
+        }
+
+        /* Top Categories Grid */
+        .top-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Category Tile Styles */
+        .cat-tile {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .cat-tile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            z-index: 1;
+        }
+
+        .cat-tile:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent-soft);
+            box-shadow: 0 25px 50px rgba(78, 205, 196, 0.3);
+        }
+
+        .cat-tile:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Tile Image - REAL IMAGE */
+        .cat-tile-image {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(255, 71, 87, 0.1), rgba(78, 205, 196, 0.1));
+        }
+
+        .cat-tile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .cat-tile:hover .cat-tile-image img {
+            transform: scale(1.1);
+        }
+
+        /* Image overlay for better text readability */
+        .cat-tile-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .cat-tile:hover .cat-tile-image::after {
+            opacity: 1;
+        }
+
+        /* Tile Content */
+        .cat-tile-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cat-tile h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .cat-tile p {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .cat-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* All Services Section */
+        .all-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* See More Button */
+        .see-more-section {
+            text-align: center;
+            margin: 5rem 0 3rem;
+        }
+
+        .see-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            color: white;
+            background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+            box-shadow: 0 10px 40px rgba(255, 71, 87, 0.35);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .see-more-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .see-more-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .see-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(78, 205, 196, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        footer p:last-child {
+            margin-top: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .top-categories,
+            .all-services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .page-hero {
+                min-height: 35vh;
+                padding: 3rem 0 1.5rem;
+            }
+
+            .top-categories,
+            .all-services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .cat-tile-image {
+                height: 170px;
+            }
+
+            .cat-tile h3 {
+                font-size: 1.2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .see-more-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-categories,
+            .all-services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cat-tile-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="page-hero">
+        <div class="container">
+            <img src="./logo3.png" alt="TaskoBid" class="logo">
+            <h1>All Service Categories</h1>
+            <p class="subtitle">From home repairs to digital services - find the perfect professional for any task</p>
+        </div>
+    </section>
+
+    <section class="category-showcase">
+        <div class="container">
+            <!-- TOP Categories Section -->
+            <div class="section-header">
+                <h2><i class="fas fa-fire" style="color: var(--accent);"></i> Top Categories</h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="top-categories">
+                <div class="cat-tile">
+                    <span class="cat-badge">TOP</span>
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=600&fit=crop" alt="Beauty & Grooming">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Beauty & Grooming</h3>
+                        <p>Professional haircuts, makeup, facials and grooming services at your doorstep</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <span class="cat-badge">TOP</span>
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop" alt="Home Cleaning">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Home Cleaning</h3>
+                        <p>Deep cleaning and regular maintenance for spotless living spaces</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <span class="cat-badge">TOP</span>
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=600&fit=crop" alt="Specialized Cleaning">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Specialized Cleaning</h3>
+                        <p>Expert sofa, mattress, and carpet cleaning with advanced techniques</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <span class="cat-badge">TOP</span>
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&h=600&fit=crop" alt="Appliance Repair">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Appliance Repair</h3>
+                        <p>Fast repairs for AC, refrigerators, washing machines and more</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <span class="cat-badge">TOP</span>
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&h=600&fit=crop" alt="Electrical Services">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Electrical Services</h3>
+                        <p>Licensed electricians for installations, repairs and safety checks</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Services Section -->
+            <div class="section-header">
+                <h2><i class="fas fa-th" style="color: var(--accent-soft);"></i> All Services</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="all-services-grid">
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=800&h=600&fit=crop" alt="Plumbing">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Plumbing</h3>
+                        <p>Expert plumbers for tap repairs, pipe fitting and bathroom installations</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1604709177225-055f99402ea3?w=800&h=600&fit=crop" alt="AC & Refrigeration">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>AC & Refrigeration</h3>
+                        <p>Professional installation, repair and servicing of cooling systems</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=800&h=600&fit=crop" alt="Painting">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Painting</h3>
+                        <p>Interior, exterior and waterproofing solutions by skilled painters</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=600&fit=crop" alt="Carpentry">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Carpentry</h3>
+                        <p>Custom furniture, door repairs and woodwork by master carpenters</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1563207153-f403bf289096?w=800&h=600&fit=crop" alt="Pest Control">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Pest Control</h3>
+                        <p>Effective treatments for cockroaches, termites and bed bugs</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop" alt="Digital Services">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Digital Services</h3>
+                        <p>Web development, design and social media management experts</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop" alt="Tutors & Training">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Tutors & Training</h3>
+                        <p>Qualified home tutors for academics, music and language learning</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=800&h=600&fit=crop" alt="Home Repairs">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Home Repairs</h3>
+                        <p>Quick fixes for doors, windows, locks and general maintenance</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop" alt="Moving & Packing">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Moving & Packing</h3>
+                        <p>Professional movers for safe and efficient relocations</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop" alt="Catering Services">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Catering Services</h3>
+                        <p>Expert chefs and caterers for events and daily meal prep</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&h=600&fit=crop" alt="Photography">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Photography</h3>
+                        <p>Professional photographers for events, portraits and commercial shoots</p>
+                    </div>
+                </div>
+
+                <div class="cat-tile">
+                    <div class="cat-tile-image">
+                        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&h=600&fit=crop" alt="Gardening">
+                    </div>
+                    <div class="cat-tile-content">
+                        <h3>Gardening</h3>
+                        <p>Landscape design, maintenance and plant care specialists</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- See More Button -->
+            <div class="see-more-section">
+                <a href="/services.html" class="see-more-btn">
+                    <span>Explore All Services</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 TaskoBid. All rights reserved.</p>
+        <p style="margin-top: 1rem;">Built with ❤️ in India aka Bharat</p>
+                <p style="margin-top: 1rem;">
+            <a href="privacy.html" style="color: var(--accent-soft); margin: 0 1rem;">Privacy Policy</a>
+            <a href="terms.html" style="color: var(--accent-soft); margin: 0 1rem;">Terms & Conditions</a>
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
