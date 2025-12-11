@@ -977,12 +977,63 @@ section.container:has(.carousel) {
             left: 0;
             font-size: 1.2rem;
         }
+/* Inline Social Links */
+.social-links-inline {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+}
 
-        /* Final CTA */
-        .final-cta {
-text-align: center;
-  padding: 6rem 4rem;
-  background: var(--surface);
+.social-links-inline h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--accent-soft);
+    font-size: 1.4rem;
+    transition: 0.3s;
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-soft);
+    background: rgba(78, 205, 196, 0.1);
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.2);
+}
+
+/* Update contact-methods for single column */
+.contact-methods {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.contact-methods h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Final CTA */
+.final-cta {
+    text-align: center;
+    padding: 6rem 4rem;
+    background: var(--surface);
   border-radius: 30px;
   border: 2px solid var(--green);
   position: relative;
