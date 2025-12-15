@@ -1247,7 +1247,7 @@ body.nav-open {
   
   .nav-links.active {
     right: 0;
-      top:0px;
+      top: 25px;
   }
 }
     /* Show menu when active */
@@ -1321,7 +1321,7 @@ body.nav-open {
     
     .nav-links.active {
         right: 0;
-        top: 0;
+        top: 25px;
     }
     
     .nav-logo {
