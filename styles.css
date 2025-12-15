@@ -1321,6 +1321,7 @@ body.nav-open {
     
     .nav-links.active {
         right: 0;
+        top: 0;
     }
     
     .nav-logo {
